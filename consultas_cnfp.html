@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>CNFP 2017 e Cadastro Ambiental Rural 2018</title>
+	<title>CNFP 2017 e Parcelas SIGEF</title>
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,89 +33,21 @@
 <div id='map'></div>
 
 <script>
-	var car_ambiental = L.layerGroup();
-	var cadastros = L.layerGroup();
-	var florestas = L.layerGroup();
-
-var    wmsLayer_rvn = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms?', {
-                layers:'CNFP_orig:atlas_02_remanesc',
-                transparent:true,
-                format: 'image/png'             
-        }).addTo(car_ambiental);
-
-        var wmsLayer_app = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms?', {
-                layers:'CNFP_orig:atlas_30_app',
-                transparent:true,
-                format: 'image/png'             
-        }).addTo(car_ambiental);
-
-        var wmsLayer_rl = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms?', {
-                layers:'CNFP_orig:atlas_32_rl',
-                transparent:true,
-                format: 'image/png'             
-        }).addTo(car_ambiental);
-
-
-
-       var wmsLayer_nasc = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms?', {
-                layers:'CNFP_orig:atlas_15_nasc',
-                transparent:true,
-                format: 'image/png'             
-        }).addTo(car_ambiental);
-
-
-       var wmsLayer_nasc_c = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms?', {
-                layers:'CNFP_orig:nascentes',
-                transparent:true,
-                format: 'image/png'             
-        }).addTo(car_ambiental);
-
+	
 
 
 	var cnfp = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms?', {
 		layers:'CNFP_orig:cnfp2017_final',
 		transparent:true,
 		format: 'image/png'		
-	}).addTo(cadastros);
-
-	var car = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms?', {
-		layers:'CNFP_orig:atlas_26_imovel',
-		transparent:true,
-		format: 'image/png'		
-	}).addTo(cadastros);
-
-	var tipoA = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms?', {
-		layers:'CNFP_orig:cnfp2017_tipo_a',
-		sparent:true,
-		format: 'image/png'		
-	}).addTo(florestas);
-
-
-	var tipoB = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms?', {
-		layers:'CNFP_orig:cnfp2017_tipo_b',
-		transparent:true,
-		format: 'image/png'		
-	}).addTo(florestas);
-
-	var cnfp_ti = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms?', {
-		layers:'CNFP_orig:cnfp2017_ti',
+	});
+	var consulta = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/consultas_cnfp/wms?', {
+		layers:'consultas_cnfp:parcelas_sigef',
 		transparent:true,
 		format: 'image/png'		
 	});
-
-	var cnfp_ucfed = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms?', {
-		layers:'CNFP_orig:cnfp2017_tipo_ucfed',
-		transparent:true,
-		format: 'image/png'		
-	});
-
-
-	var cnfp_ucest = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms?', {
-		layers:'CNFP_orig:cnfp2017_tipo_ucest',
-		transparent:true,
-		format: 'image/png'		
-	});
-
+	
+	
 
         var estados = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms?', {
                 layers:'CNFP_orig:sicar_uf2015',
@@ -129,55 +61,6 @@ var    wmsLayer_rvn = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserve
                 transparent:true,
                 format: 'image/png'             
         });
-
-
-	
-	var pontos_wms = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/geifn/wms', {
-			layers: 'geifn:v_status_ponto',
-			transparent:true,
-			format: 'image/png'		
-		});
-		
-	var biomas_wms = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/geifn/wms', {
-			layers: 'geinf:tb_biomas',
-			transparent:true,
-			format: 'image/png'		
-		});	
-
-
-        var ndvi16 = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms?', {
-                layers:'CNFP_orig:nasa_MOD_NDVI_16 ',
-                transparent:true,
-                format: 'image/png'             
-        });
-
- var areafoliar = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms?', {
-                layers:'CNFP_orig:MOD15A2_E_LAI ',
-                transparent:true,
-                format: 'image/png'             
-        });
-
- var chuva_mes = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms?', {
-                layers:'CNFP_orig:TRMM_3B43M ',
-                transparent:true,
-                format: 'image/png'             
-        });
-
-
- var populacao = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms?', {
-                layers:'CNFP_orig:SEDAC_POP ',
-                transparent:true,
-                format: 'image/png'             
-        });
-
-        var ana_uph =  L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms', {
-                        layers: 'CNFP_orig:ana_snirh_uph',
-                        transparent:true,
-                        format: 'image/png'
-                });    
-
-
-
 
 	var streets = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 		maxZoom: 20,
@@ -212,32 +95,11 @@ var    wmsLayer_rvn = L.tileLayer.wms('http://sistemas.florestal.gov.br/geoserve
 
 	var overlays = {
                 "CNFP-Flor.Públicas 2017": cnfp,
-		"CAR - Imóveis Rurais" : car,
-		"CAR - Nascentes" : wmsLayer_nasc,
-                "CAR - Nasc. Class. RVN" : wmsLayer_nasc_c,
-                "CAR-Reman. de Vegetação": wmsLayer_rvn,
-                "CAR-Reserva Legal": wmsLayer_rl,
-                "CAR-Area de Pres. Permanente": wmsLayer_app,
+		"Consulta - INCRA SIGEF" : consulta,
                 "IBGE-Limites Estaduais": estados,
-                "IBGE-Biomas" : biomas_wms,
  		"IBGE-Limites Municipais": municipios,
-		"ANA - Unid. Plan. Hidrico": ana_uph,
-                "CNFP-Flor. Publ. Destinadas": tipoA ,
-                "CNFP-Flor. Publ. Não Destinadas": tipoB ,
-                "CNFP-Terras Indígenas": cnfp_ti ,          
-                "CNFP-UCs Federais": cnfp_ucfed ,            
-                "CNFP-UCs Estaduais": cnfp_ucest, 
-                "IFN - Conglomerados" : pontos_wms,
                }; 
-  var baselayers2 = {
-                };
- var overlays2 = {
-                "NASA-NDVI MODIS": ndvi16,
-                "NASA-Area Foliar": areafoliar,
-                "NASA-Chuva do Mes": chuva_mes,
-                "NASA-Dens. Populacao": populacao,
-		"CNFP e CAR": cadastros,
-                "CAR Ambiental-RVN/RL/APP": car_ambiental,
+
 
 
 	};
@@ -260,17 +122,12 @@ var logo = L.control({position: 'topright'});
     };
     logo.addTo(map);
         L.control.layers(baseLayers, overlays).addTo(map);
-        L.control.layers(baselayers2, overlays2).addTo(map);
 	
     map.addLayer(cnfp);
-    map.addLayer(car);
+    map.addLayer(consulta);
 
 uri = "http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms?service=WMS&version=1.1.0&REQUEST=GetLegendGraphic&FORMAT=image/png&WIDTH=30&HEIGHT=35&layer=CNFP_orig:cnfp_2017",
     L.wmsLegend(uri);
-uri = "http://sistemas.florestal.gov.br/geoserver/CNFP_orig/wms?service=WMS&version=1.1.0&REQUEST=GetLegendGraphic&FORMAT=image/png&WIDTH=30&HEIGHT=35&layer=CNFP_orig:imoveis",
-    L.wmsLegend(uri);
-//uri = "http://sistemas.florestal.gov.br/geoserver/geifn/wms?service=WMS&version=1.1.0&REQUEST=GetLegendGraphic&FORMAT=image/png&WIDTH=30&HEIGHT=35&layer=geifn:v_status_ponto",
-  //  L.wmsLegend(uri);
 
 </script>
 
